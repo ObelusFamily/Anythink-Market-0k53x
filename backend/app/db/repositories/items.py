@@ -17,6 +17,7 @@ from app.db.repositories.base import BaseRepository
 from app.db.repositories.profiles import ProfilesRepository
 from app.db.repositories.tags import TagsRepository
 from app.models.domain.items import Item
+from app.models.domain.profiles import Profile
 from app.models.domain.users import User
 
 SELLER_USERNAME_ALIAS = "seller_username"
@@ -333,3 +334,25 @@ class ItemsRepository(BaseRepository):  # noqa: WPS214
             self.connection,
             [{SLUG_ALIAS: slug, "tag": tag} for tag in tags],
         )
+
+    async def get_items_by_seller_usernames(self, *, seller_usernames: List[str]):
+        item_rows = await queries.get_items_by_seller_usernames(
+            self.connection,
+            seller_usernames=seller_usernames,
+        )
+        if item_rows:
+            return [Item(**item_row,
+                         favorited=False,
+                         favorites_count=0,
+                         tags=[],
+                         seller=Profile(
+                             username="",
+                             bio="",
+                             following=False,
+                         )
+                     ) for item_row in item_rows]
+
+        raise EntityDoesNotExist(
+            "No item(s) found for given seller id(s): ".format(", ".join(seller_usernames))
+        )
+

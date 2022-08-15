@@ -117,3 +117,18 @@ ORDER BY a.created_at
 LIMIT :limit
 OFFSET
 :offset;
+
+-- name: get-items-by-seller-usernames
+SELECT id,
+       slug,
+       title,
+       description,
+       body,
+       image,
+       seller_id
+FROM items
+WHERE seller_id in (
+    SELECT id
+    FROM users
+    WHERE username = ANY (:seller_usernames)
+);

@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 
 from app.db.errors import EntityDoesNotExist
 from app.db.queries.queries import queries
@@ -24,6 +24,18 @@ class UsersRepository(BaseRepository):
 
         raise EntityDoesNotExist(
             "user with username {0} does not exist".format(username),
+        )
+
+    async def get_users_by_username(self, *, username: str) -> List[UserInDB]:
+        user_rows = await queries.get_users_by_username(
+            self.connection,
+            username=username,
+        )
+        if user_rows:
+            return [UserInDB(**user_row) for user_row in user_rows]
+
+        raise EntityDoesNotExist(
+            "user(s) with username {0} do(es) not exist".format(username)
         )
 
     async def create_user(

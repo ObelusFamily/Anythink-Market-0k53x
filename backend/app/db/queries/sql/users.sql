@@ -27,6 +27,18 @@ FROM users
 WHERE username = :username
 LIMIT 1;
 
+-- name: get-users-by-username
+SELECT username,
+       id,
+       email,
+       salt,
+       hashed_password,
+       bio,
+       image,
+       created_at,
+       updated_at
+FROM users
+WHERE username like :username || '%';
 
 -- name: create-new-user<!
 INSERT INTO users (username, email, salt, hashed_password)
