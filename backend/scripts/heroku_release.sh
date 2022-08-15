@@ -10,6 +10,7 @@ NO_COLOR='\033[0m'
 set -euo pipefail
 
 printf "\n⏳${YELLOW}   [Release Phase]: Running schema migrations.${NO_COLOR}\n"
+export PYTHONPATH="/usr/src/backend"
 alembic upgrade head
 printf "\n⏳${YELLOW}   [Release Phase]: Seeding.${NO_COLOR}\n"
 ./seeds.sh
