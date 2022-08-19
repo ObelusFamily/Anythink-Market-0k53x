@@ -2,6 +2,7 @@ from typing import List, Optional, Sequence, Union
 
 from asyncpg import Connection, Record
 from pypika import Query
+from pypika.functions import Lower
 
 from app.db.errors import EntityDoesNotExist
 from app.db.queries.queries import queries
@@ -105,6 +106,7 @@ class ItemsRepository(BaseRepository):  # noqa: WPS214
         *,
         tag: Optional[str] = None,
         seller: Optional[str] = None,
+        title: Optional[str] = None,
         favorited: Optional[str] = None,
         limit: int = 20,
         offset: int = 0,
@@ -174,6 +176,15 @@ class ItemsRepository(BaseRepository):  # noqa: WPS214
                         users.id,
                     )
                 ),
+            )
+            # fmt: on
+
+        if title:
+            # fmt: off
+            query = query.where(
+                Lower(items.title).like(
+                    f"{title.lower()}%"
+                )
             )
             # fmt: on
 
