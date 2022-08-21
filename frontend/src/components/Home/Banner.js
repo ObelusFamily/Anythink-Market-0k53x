@@ -6,13 +6,14 @@ const Banner = (props) => {
   const handleInput = (ev) => {
     ev.preventDefault();
     const searchString = ev.target.value;
-    if (searchString.length < 3) return;
+    if (!!searchString && searchString.length < 3) return;
     props.onInputSearchString(
       searchString,
       (page) => agent.Items.byTitle(searchString, page),
       agent.Items.byTitle(searchString)
     );
   };
+
   return (
     <div className="banner text-white">
       <div className="container p-4 align-items-center text-center">
