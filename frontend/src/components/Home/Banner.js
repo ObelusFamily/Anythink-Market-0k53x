@@ -22,10 +22,10 @@ const Banner = (props) => {
         <div className="row justify-content-center align-items-center">
           <span id="get-part">A place to get</span>
           <div className="input-group col-sm-5">
-            <input 
+            <input
               id="search-box"
               className="form-control border-end-0"
-              type="text" 
+              type="text"
               placeholder="What is it that you truly desire?"
               onInput={handleInput}
             />
