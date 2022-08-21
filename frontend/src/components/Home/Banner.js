@@ -13,11 +13,15 @@ const Banner = (props) => {
           <img src={logo} alt="banner" />
         </div>
         <div className="row justify-content-center align-items-center">
-          <span id="get-part">
+          <span>
             A place to{" "}
-            <a href="#" className="btn px-1" onClick={clickedVisibility}>
+            <button
+              id="get-part"
+              className="btn px-1"
+              onClick={clickedVisibility}
+            >
               get
-            </a>
+            </button>
           </span>
           {isVisible && (
             <SearchBar onInputSearchString={props.onInputSearchString} />
