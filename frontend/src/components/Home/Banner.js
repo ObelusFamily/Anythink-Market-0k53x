@@ -1,40 +1,28 @@
-import React from "react";
-import agent from "../../agent";
+import { useState, React } from "react";
+import SearchBar from "./SearchBar";
 import logo from "../../imgs/logo.png";
 
 const Banner = (props) => {
-  const handleInput = (ev) => {
-    ev.preventDefault();
-    const searchString = ev.target.value;
-    if (!!searchString && searchString.length < 3) return;
-    props.onInputSearchString(
-      searchString,
-      (page) => agent.Items.byTitle(searchString, page),
-      agent.Items.byTitle(searchString)
-    );
-  };
+  const [isVisible, setIsVisible] = useState(false);
+  const clickedVisibility = () => setIsVisible(!isVisible);
 
   return (
     <div className="banner text-white">
       <div className="container p-4 align-items-center text-center">
-        <div className="">
+        <div>
           <img src={logo} alt="banner" />
         </div>
         <div className="row justify-content-center align-items-center">
-          <span id="get-part">A place to get</span>
-          <div className="input-group col-sm-5">
-            <input
-              id="search-box"
-              className="form-control border-end-0"
-              type="text"
-              placeholder="What is it that you truly desire?"
-              onInput={handleInput}
-            />
-            <span className="input-group-text bg-white ms-n3">
-              <i className="bi bi-search"></i>
-            </span>
-          </div>
-          <span> the cool stuff.</span>
+          <span id="get-part">
+            A place to{" "}
+            <a href="#" className="btn px-1" onClick={clickedVisibility}>
+              get
+            </a>
+          </span>
+          {isVisible && (
+            <SearchBar onInputSearchString={props.onInputSearchString} />
+          )}
+          <span className="px-1"> the cool stuff.</span>
         </div>
       </div>
     </div>
