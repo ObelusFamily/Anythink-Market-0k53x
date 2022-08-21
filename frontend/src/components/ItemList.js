@@ -9,7 +9,10 @@ const ItemList = (props) => {
 
   if (props.items.length === 0 && !!props.title) {
     return (
-      <div className="container parent my-2 py-2 text-center bg-primary align-items-center ">
+      <div
+        className="container parent my-2 py-2 text-center bg-primary align-items-center"
+        id="empty"
+      >
         <div className="row">
           <div className="col py-3">
             <span className="display-1">
