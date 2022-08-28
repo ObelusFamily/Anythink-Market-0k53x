@@ -1,4 +1,5 @@
 import React from "react";
+import placeholder from "../imgs/placeholder.png";
 import { Link } from "react-router-dom";
 import agent from "../agent";
 import { connect } from "react-redux";
@@ -36,7 +37,7 @@ const ItemPreview = (props) => {
     >
       <img
         alt="item"
-        src={item.image}
+        src={item.image || placeholder}
         className="card-img-top item-img"
         style={{ borderRadius: "20px" }}
       />
@@ -48,7 +49,7 @@ const ItemPreview = (props) => {
         <div className="d-flex flex-row align-items-center pt-2">
           <Link to={`/@${item.seller.username}`} className="flex-grow-1">
             <img
-              src={item.seller.image}
+              src={item.seller.image || placeholder}
               alt={item.seller.username}
               className="user-pic rounded-circle pr-1"
             />

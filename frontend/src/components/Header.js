@@ -1,4 +1,5 @@
 import React from "react";
+import placeholder from "../imgs/placeholder.png";
 import { Link } from "react-router-dom";
 import logo from "../imgs/topbar_logo.png";
 
@@ -42,7 +43,7 @@ const LoggedInView = (props) => {
         <li className="nav-item">
           <Link to={`/@${props.currentUser.username}`} className="nav-link">
             <img
-              src={props.currentUser.image}
+              src={props.currentUser.image || placeholder}
               className="user-pic pr-1"
               alt={props.currentUser.username}
             />
