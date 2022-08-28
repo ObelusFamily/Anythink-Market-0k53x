@@ -43,6 +43,8 @@ class ItemsRepository(BaseRepository):  # noqa: WPS214
         tags: Optional[Sequence[str]] = None,
     ) -> Item:
         async with self.connection.transaction():
+            if not image:
+                image = "placeholder.png"
             item_row = await queries.create_new_item(
                 self.connection,
                 slug=slug,
